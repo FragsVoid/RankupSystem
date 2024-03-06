@@ -1,0 +1,3 @@
+name: RankupSystem
+version: '${project.version}'
+main: org.rankup.rankupsystem.RankupSystem

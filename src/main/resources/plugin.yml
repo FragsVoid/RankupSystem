@@ -1,3 +1,8 @@
 name: RankupSystem
 version: '${project.version}'
 main: org.rankup.rankupsystem.RankupSystem
+commands:
+  ranks:
+    description: a rank command
+depend:
+  - Vault

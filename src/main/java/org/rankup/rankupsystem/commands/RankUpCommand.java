@@ -8,11 +8,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.rankup.rankupsystem.RankupSystem;
 
-public class rankUpCommand implements CommandExecutor {
+public class RankUpCommand implements CommandExecutor {
 
     private final RankupSystem plugin;
 
-    public rankUpCommand(RankupSystem plugin) {
+    public RankUpCommand(RankupSystem plugin) {
         this.plugin = plugin;
     }
 

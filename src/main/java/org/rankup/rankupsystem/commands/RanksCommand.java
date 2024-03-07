@@ -2,7 +2,6 @@ package org.rankup.rankupsystem.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,7 +13,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.rankup.rankupsystem.RankupSystem;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class RanksCommand implements CommandExecutor {

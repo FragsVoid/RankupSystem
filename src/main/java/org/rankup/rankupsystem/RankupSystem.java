@@ -46,8 +46,10 @@ public final class RankupSystem extends JavaPlugin implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        data.getConfig().set(player.getDisplayName(), 1);
-        data.saveConfig();
+        if (!player.hasPlayedBefore()) {
+            data.getConfig().set(player.getDisplayName(), 1);
+            data.saveConfig();
+        }
     }
 
     @EventHandler

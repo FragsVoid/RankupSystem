@@ -51,7 +51,7 @@ public class RankExpansion extends PlaceholderExpansion {
         if (params.equals("rank")) {
             return String.valueOf(getRank(player));
         } else if (params.equals("money")) {
-            return "money." + getRank(player);
+            return "money." + getRank(player) + 1;
         }
         return null;
     }

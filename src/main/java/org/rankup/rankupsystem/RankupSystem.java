@@ -2,17 +2,11 @@ package org.rankup.rankupsystem;
 
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.event.inventory.InventoryInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.rankup.rankupsystem.commands.RankUpCommand;
@@ -21,10 +15,7 @@ import org.rankup.rankupsystem.expansion.RankExpansion;
 import org.rankup.rankupsystem.files.DataManager;
 
 import java.io.File;
-import java.util.Objects;
 
-//setconfig
-//saveConfig()
 public final class RankupSystem extends JavaPlugin implements Listener {
 
     public DataManager data;

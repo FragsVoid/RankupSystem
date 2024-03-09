@@ -24,17 +24,19 @@ public class RankUpCommand implements CommandExecutor {
             Player player = (Player) commandSender;
             int rank = plugin.data.getConfig().getInt(player.getDisplayName()) + 1;
             if (eco.getBalance(player) < plugin.getConfig().getDouble("money." + rank)) {
-                player.sendMessage(plugin.getConfig().getString(ChatColor.
-                        translateAlternateColorCodes('&', "dinero-insuficiente")));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                        plugin.getConfig().getString("dinero-insuficiente")));
             } else if (plugin.data.getConfig().getInt(player.getDisplayName()) != 50) {
                 plugin.data.getConfig().set(player.getDisplayName(), rank);
-                player.sendMessage(plugin.getConfig().getString(ChatColor.
-                        translateAlternateColorCodes('&', "rango-siguiente")));
+                plugin.data.saveConfig();
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                        plugin.getConfig().getString("rango-siguiente")));
                 eco.withdrawPlayer(player, plugin.getConfig().getDouble("money." + rank));
             } else {
-                player.sendMessage(plugin.getConfig().getString(ChatColor.
-                        translateAlternateColorCodes('&', "rango-maximo")));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                        plugin.getConfig().getString("rango-maximo")));
             }
+
         }
 
 

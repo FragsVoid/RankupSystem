@@ -1,3 +1,4 @@
 dinero-insuficiente: "&cNo tienes suficiente dinero para subir de rango!"
 rango-maximo: "&cYa tienes el máximo rango!"
 rango-siguiente: "&cHas subido de rango!"
+firstime: false

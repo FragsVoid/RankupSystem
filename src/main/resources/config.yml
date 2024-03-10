@@ -1,4 +1,16 @@
-dinero-insuficiente: "&cNo tienes suficiente dinero para subir de rango!"
-rango-maximo: "&cYa tienes el máximo rango!"
-rango-siguiente: "&cHas subido de rango!"
-firstime: false
+not-enough-money: "&cYou don't have enough money for that!"
+maximum-rank: "&cYou already have the maximum rank!"
+next-rank: "&cYou have leveled up!"
+Inventory-full: "&cYour inventory is full!"
+firstime: true
+#This is the name shown for /ranks when you have gotten a rank
+name-green-rank: "&5Rank {number}"
+lore-green-rank:
+  - "&4Price: {money}"
+  - "&4Rewards: {item}"
+  - "&4You already have this rank!"
+name-red-rank: "&cRank {number}"
+lore-red-rank:
+  - "&cPrice: {money}"
+  - "&cRewards: {item}"
+  - "&cYou can buy this rank!"

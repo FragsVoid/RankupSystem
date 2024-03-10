@@ -1,0 +1,50 @@
+package org.rankup.rankupsystem.commands;
+
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.rankup.rankupsystem.RankupSystem;
+
+public class RanksItem implements CommandExecutor {
+
+    private final RankupSystem plugin;
+
+    public RanksItem(RankupSystem plugin) {
+        this.plugin = plugin;
+    }
+
+    @Override
+    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
+
+        if (commandSender instanceof Player) {
+          Player player = (Player) commandSender;
+          ItemStack item = player.getItemInHand();
+          ItemStack air = new ItemStack(Material.AIR);
+
+
+          if (player.hasPermission("ranks.set")) {
+            if (args.length == 0) {
+                player.sendMessage(ChatColor.RED + "Wrong usage! /rankitem set <Rank>");
+                return false;
+            } else if (args.length == 1) {
+                player.sendMessage(ChatColor.RED + "Wrong usage! /rankitem set <Rank>");
+            }else if (args.length == 2) {
+                if (item == null || item.equals(air)) {
+                    player.sendMessage("Your item in hand is null!");
+                    return false;
+                }
+                player.sendMessage(ChatColor.GREEN + "Your item has been set as a reward to the rank " +
+                        Integer.valueOf(args[1]));
+                plugin.items.getConfig().set(args[1], item.serialize());
+                plugin.items.saveConfig();
+            }
+          }
+        }
+
+        return false;
+    }
+}

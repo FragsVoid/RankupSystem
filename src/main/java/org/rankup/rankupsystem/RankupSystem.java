@@ -2,17 +2,22 @@ package org.rankup.rankupsystem;
 
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.rankup.rankupsystem.commands.RankUpCommand;
 import org.rankup.rankupsystem.commands.RanksCommand;
+import org.rankup.rankupsystem.commands.RanksItem;
 import org.rankup.rankupsystem.expansion.RankExpansion;
 import org.rankup.rankupsystem.files.DataManager;
+import org.rankup.rankupsystem.files.ItemsManager;
 
 import java.io.File;
 
@@ -20,6 +25,7 @@ public final class RankupSystem extends JavaPlugin implements Listener {
 
     public DataManager data;
 
+    public ItemsManager items;
     FileConfiguration file;
     File cFile;
     private static Economy eco;
@@ -27,6 +33,7 @@ public final class RankupSystem extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         this.data = new DataManager(this);
+        this.items = new ItemsManager(this);
         getServer().getPluginManager().registerEvents(this,this);
 
         this.file = getConfig();
@@ -35,24 +42,38 @@ public final class RankupSystem extends JavaPlugin implements Listener {
         saveDefaultConfig();
 
         boolean firstime = file.getBoolean("firstime");
+        boolean firstitemtime = items.getConfig().getBoolean("firstime");
 
-
+        getCommand("rankitem").setExecutor(new RanksItem(this));
         getCommand("ranks").setExecutor(new RanksCommand(this));
-        getCommand("rankup").setExecutor(new RankUpCommand(this));
-
         if (!setupEconomy() ) {
             getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
             getServer().getPluginManager().disablePlugin(this);
         }
         new RankExpansion(this).register();
-        if (!firstime) {
-            System.out.println(0);
+        if (firstime) {
             for (int i = 1; i < 51; i++) {
                 file.set("money." + i, 100 * i);
             }
             saveConfig();
         }
-        file.set("firstime", true);
+        /*if (firstitemtime) {
+            items.getConfig().createSection("Rewards");
+            for (int i = 1; i < 51; i++) {
+                items.getConfig().set("Rewards." + i + ".material" , "DIAMOND_AXE");
+                items.getConfig().set("Rewards." + i + ".name", "&cThe Axe");
+                items.getConfig().set("Rewards." + i + ".amount", 1);
+            }
+            items.saveConfig();
+        }
+
+         */
+        file.set("firstime", false);
+        saveConfig();
+        items.getConfig().set("firstime", false);
+        items.saveConfig();
+
+        getCommand("rankup").setExecutor(new RankUpCommand(this, items.getConfig()));
     }
     @EventHandler
     public void onClick(final InventoryClickEvent e)

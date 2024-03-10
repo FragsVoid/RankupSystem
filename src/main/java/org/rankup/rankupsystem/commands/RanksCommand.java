@@ -1,5 +1,6 @@
 package org.rankup.rankupsystem.commands;
 
+import com.avaje.ebeaninternal.server.core.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -13,6 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.rankup.rankupsystem.RankupSystem;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RanksCommand implements CommandExecutor {
@@ -35,25 +37,34 @@ public class RanksCommand implements CommandExecutor {
                 if(plugin.data.getConfig().getInt(player.getDisplayName()) >= i) {
                     ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, i, (short) 5);
                     ItemMeta meta = item.getItemMeta();
-                    meta.setDisplayName(ChatColor.GREEN +  "Rank" + i);
+                    meta.setDisplayName(ChatColor.translateAlternateColorCodes('&',
+                            plugin.getConfig().getString("name-green-rank").replace("{number}",
+                                    String.valueOf(i))));
                     List<String> list = new ArrayList<>();
-                    list.add(ChatColor.GREEN + "Precio: " + plugin.getConfig()
-                            .getDouble("money." + i));
+                    for (String lore : plugin.getConfig().getStringList("lore-green-rank")) {
+                        list.add(ChatColor.translateAlternateColorCodes('&',
+                                lore).replace("{money}", String.valueOf(plugin.getConfig().getDouble("money."
+                                + i))).replace("{item}",ChatColor.translateAlternateColorCodes('&',
+                                        plugin.items.getConfig().getString("Rewards." + i + ".name"))));
+                    }
                     meta.setLore(list);
                     item.setItemMeta(meta);
-
                     inv.addItem(item);
                 } else {
                     ItemStack item2 = new ItemStack(Material.STAINED_GLASS_PANE, i, (short) 14);
                     ItemMeta meta2 = item2.getItemMeta();
-                    meta2.setDisplayName(ChatColor.GREEN +  "Rank" + i);
+                    meta2.setDisplayName(ChatColor.translateAlternateColorCodes('&',
+                            plugin.getConfig().getString("name-red-rank").replace("{number}",
+                                    String.valueOf(i))));
                     List<String> list = new ArrayList<>();
-                    list.add(ChatColor.GREEN + "Precio: " + plugin.getConfig()
-                            .getDouble("money." + i));
+                    for (String lore : plugin.getConfig().getStringList("lore-red-rank")) {
+                        list.add(ChatColor.translateAlternateColorCodes('&',
+                                lore).replace("{money}", String.valueOf(plugin.getConfig().getDouble("money."
+                                + i))).replace("{item}",ChatColor.translateAlternateColorCodes('&',
+                                plugin.items.getConfig().getString("Rewards." + i + ".name"))));
+                    }
                     meta2.setLore(list);
-
                     item2.setItemMeta(meta2);
-
                     inv.addItem(item2);
 
                 }

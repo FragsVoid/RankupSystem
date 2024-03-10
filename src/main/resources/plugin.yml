@@ -6,7 +6,13 @@ commands:
     description: a rank command
   rankup:
     description: To rankup
+  rankitem:
+    description: It lets you set an item to a rank
 depend:
   - Vault
 softdepend:
   - PlaceholderAPI
+permissions:
+  ranks.set:
+    description: It lets you to set an item as a reward
+    default: op

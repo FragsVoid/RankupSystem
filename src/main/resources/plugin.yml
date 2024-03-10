@@ -8,6 +8,10 @@ commands:
     description: To rankup
   rankitem:
     description: It lets you set an item to a rank
+  ranksreload:
+    description: reloads plugin
+    permission: ranks.reload
+    permission-message: You don't have the required permission!
 depend:
   - Vault
 softdepend:

@@ -2,7 +2,13 @@ package org.rankup.rankupsystem;
 
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
+import org.bukkit.command.BlockCommandSender;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -86,7 +92,28 @@ public final class RankupSystem extends JavaPlugin implements Listener {
             {
                 e.setCancelled(true);
             }
+    }
+
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (command.getName().equalsIgnoreCase("rankreload")) {
+
+            data.reloadConfig();
+            if (sender instanceof Player) {
+                if (!sender.hasPermission("ranks.reload"))
+                    return false;
+                sender.sendMessage("Configs reloading!");
+            } else if (sender instanceof ConsoleCommandSender || sender instanceof BlockCommandSender) {
+                System.out.println("Configs reloading!");
+            }
+            file = YamlConfiguration.loadConfiguration(this.cFile);
+            reloadConfig();
+            items.reloadConfig();
         }
+        return false;
+    }
+
 
     private boolean setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {

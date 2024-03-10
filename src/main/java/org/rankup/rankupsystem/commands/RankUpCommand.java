@@ -2,22 +2,18 @@ package org.rankup.rankupsystem.commands;
 
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.rankup.rankupsystem.RankupSystem;
 import org.rankup.rankupsystem.RewardsItems;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RankUpCommand implements CommandExecutor {
@@ -33,7 +29,6 @@ public class RankUpCommand implements CommandExecutor {
         if (itemsSection == null)
             System.out.println("Rewards are null, it wont work if you delete it!");
         for (String key : itemsSection.getKeys(false)) {
-            ConfigurationSection section = itemsSection.getConfigurationSection(key);
             rewardsItems.add(new RewardsItems(plugin));
         }
     }

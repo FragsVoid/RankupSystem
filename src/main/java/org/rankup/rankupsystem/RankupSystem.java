@@ -23,6 +23,8 @@ import org.rankup.rankupsystem.files.DataManager;
 import org.rankup.rankupsystem.files.ItemsManager;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class RankupSystem extends JavaPlugin implements Listener {
 
@@ -31,6 +33,9 @@ public final class RankupSystem extends JavaPlugin implements Listener {
     public ItemsManager items;
     FileConfiguration file;
     File cFile;
+
+    public final List<RewardsItems> rewardsItems = new ArrayList<>();
+
     private static Economy eco;
 
     @Override
@@ -56,7 +61,8 @@ public final class RankupSystem extends JavaPlugin implements Listener {
         new RankExpansion(this).register();
         if (firstime) {
             for (int i = 1; i < 51; i++) {
-                file.set("money." + i, 100 * i);
+                file.set("Ranks." + i + ".name", i);
+                file.set("Ranks." + i + ".money", 100 * i);
             }
             saveConfig();
         }

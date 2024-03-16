@@ -1,6 +1,7 @@
 package org.rankup.rankupsystem.expansion;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -49,9 +50,18 @@ public class RankExpansion extends PlaceholderExpansion {
         if (player == null)
             return "";
         if (params.equals("rank")) {
-            return String.valueOf(getRank(player));
+            if (getRank(player) == 0) {
+                return "0";
+            } else {
+                return "Ranks." + getRank(player) + ".name";
+            }
+
         } else if (params.equals("money")) {
-            return "money." + getRank(player) + 1;
+            if (getRank(player) == 0) {
+                return String.valueOf(plugin.getConfig().get("Ranks.1.money"));
+            } else {
+                return String.valueOf(plugin.getConfig().get("Ranks." + getRank(player) + 1 + ".money"));
+            }
         }
         return null;
     }

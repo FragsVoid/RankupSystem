@@ -20,17 +20,13 @@ public class RankUpCommand implements CommandExecutor {
 
     private final RankupSystem plugin;
 
-    private final List<RewardsItems> rewardsItems = new ArrayList<>();
 
     public RankUpCommand(RankupSystem plugin, FileConfiguration lootConfig) {
         this.plugin = plugin;
         ConfigurationSection itemsSection = lootConfig.getConfigurationSection("Rewards");
-
         if (itemsSection == null)
             System.out.println("Rewards are null, it wont work if you delete it!");
-        for (String key : itemsSection.getKeys(false)) {
-            rewardsItems.add(new RewardsItems(plugin));
-        }
+        plugin.rewardsItems.add(new RewardsItems(plugin));
     }
 
     @Override
@@ -71,12 +67,13 @@ public class RankUpCommand implements CommandExecutor {
 
 
     public void giveItem(Player player) {
+        plugin.rewardsItems.add(new RewardsItems(plugin));
 
-        ThreadLocalRandom random = ThreadLocalRandom.current();
-
-        RewardsItems randomItem = rewardsItems.get(random.nextInt(rewardsItems.size()));
+        RewardsItems randomItem = plugin.rewardsItems.get(plugin.data.getConfig().getInt
+                (player.getDisplayName()));
 
         ItemStack itemStack = randomItem.make(player);
         player.getInventory().addItem(itemStack);
+
     }
 }
